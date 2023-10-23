@@ -27,9 +27,9 @@ const todoList = [
 function TodoList(){
       return(
         <ul style={{listStyleType: 'none',}}>
-          {todoList.map((item)=>{
-            return <TodoListItem key={item.id} item={item} />
-          })}
+          {todoList.map((item)=>(
+            <TodoListItem key={item.id} item={item}/>
+          ))}
         </ul>      
       )
     }
