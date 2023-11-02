@@ -3,7 +3,7 @@ import TodoListItem from './TodoListItem';
 
 function TodoList({todoList}){
       return(
-        <ul style={{listStyleType: 'none',}}>
+        <ul>
           {todoList.map((todo)=>(
             <TodoListItem key={todo.id} item={todo}/>
           ))}
