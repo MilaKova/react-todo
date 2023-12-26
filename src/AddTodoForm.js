@@ -10,18 +10,21 @@ function AddTodoForm({onAddTodo}){
   };
   
   const handleAddTodo = (e) => {
-    e.preventDefault()
-    onAddTodo(todoTitle)
-    //   id: Date.now(),
-    //   title: todoTitle
-    setTodoTitle("")
+    e.preventDefault();
+
+    const newTodo = {
+      id: Date.now(),
+      title: todoTitle,
+    };
+    onAddTodo(newTodo);
+    setTodoTitle("");
   };
 
   return(
     <form onSubmit={handleAddTodo}>
 
       <InputWithLabel
-       id='todotitle'
+       id='todoTitle'
        value={todoTitle}
        onChange={handleTitleChange}>
 

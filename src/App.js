@@ -53,25 +53,15 @@ function App() {
     fetchData()
   },[]);
 
-  const removeTodo = (id)=> {
-    const newTodo = todoList.filter(
-      (todoList)=>id !==todoList.id
-    )
-   setTodoList(newTodo);
-  };
 
-  // const addTodo = (newTodo) => {
-  //   setTodoList([...todoList, newTodo])
-  // };
-
-  const postTodo = async (todo) => {
+  const addTodo = async (todo) => {
     try {
       const airtableData = {
         fields: {
-        title: todo,
+        title: todo.title,
         },
       };
-      console.log("airtableData:", airtableData)
+      // console.log("airtableData:", airtableData)
 
       const response = await fetch(
         `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`,
@@ -85,7 +75,7 @@ function App() {
           body: JSON.stringify(airtableData),
         }
       );
-      
+
       if (!response.ok) {
         const message = `Error: ${response.status}`;
         throw new Error(message);
@@ -106,10 +96,42 @@ function App() {
       }  
   };
 
+
+  const removeTodo = async(id)=> {
+    try{
+      const response = await fetch(
+        `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}/${id}`,
+
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_TOKEN}`,
+          },
+          
+        }
+      );
+
+      if (!response.ok) {
+        const message = `Error: ${response.status}`;
+        throw new Error(message);
+      }
+
+      const newTodoList = todoList.filter(
+        item => item.id !==id
+      )
+      setTodoList(newTodoList);
+
+    } catch (error) {
+      console.log(error.message);
+      return null;
+      }  
+  };
+
   return (
     <>  
       <h1>Todo list</h1>      
-      <AddTodoForm onAddTodo={postTodo}/>
+      <AddTodoForm onAddTodo={addTodo}/>
 
       {isError && <p>Something went wrong</p>}
 
