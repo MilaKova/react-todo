@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import TodoList from'./TodoList.js';
 import AddTodoForm from './AddTodoForm';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import styles from'./App.module.css';
 
 function App() {
 
@@ -28,7 +29,6 @@ function App() {
       }
 
       const data = await response.json();
-      console.log("data:", data);
       const todos= data.records.map((todo)=>{
         const newTodo = {
           id: todo.id,
@@ -37,7 +37,6 @@ function App() {
         }
         return newTodo;          
       });
-      console.log("todos:", todos);
 
       setTodoList(todos);
       setIsLoading(false);
@@ -48,11 +47,9 @@ function App() {
       };         
   }; 
 
-
   useEffect(() => {
     fetchData()
   },[]);
-
 
   const addTodo = async (todo) => {
     try {
@@ -61,7 +58,6 @@ function App() {
         title: todo.title,
         },
       };
-      // console.log("airtableData:", airtableData)
 
       const response = await fetch(
         `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`,
@@ -128,14 +124,35 @@ function App() {
       }  
   };
 
+const date = new Date();
+const showTime = date.toLocaleTimeString('it-IT', { 
+  hour: '2-digit', 
+  minute: '2-digit',  
+})
+
+const  options = {
+  weekday:'long',
+  month:'long',
+  day:'numeric',
+}
+const curentDate = date.toLocaleString('en-US', options)
+
   return (
     <BrowserRouter>
+
+    <div className={styles.showTime}>
+      <h2>{showTime}</h2>
+      <h3>{curentDate}</h3>
+   </div>
+   
+
+    <div className={styles.container}>
       <Routes>
         <Route
           path="/"
           element={
             <>
-              <h1>Todo list</h1>
+              <h1><span className="material-symbols-outlined">select_check_box</span> to do </h1>
               <AddTodoForm onAddTodo={addTodo} />
 
               {isError && <p>Something went wrong</p>}
@@ -150,6 +167,7 @@ function App() {
         />
         <Route path="/new" element={<h1>New Todo List</h1>} />
       </Routes>
+      </div>
     </BrowserRouter>
    );
 };

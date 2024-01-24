@@ -1,0 +1,70 @@
+
+body {
+    margin: 30px;
+    background-image: url(../public/image2.jpeg);
+    background-color: rgb(195, 189, 178);
+    display: flex;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 5px;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.showTime {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+h2 {
+    font-size: 100px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.container {
+    color: rgb(65, 61, 55);
+    margin-top: 100px;
+    background-color: rgb(218, 210, 200);
+    opacity: 0.9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30rem;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+@media (max-width: 480px) {
+
+
+    h2 {
+        font-size: 35px;
+    }
+
+    h3 {
+        font-size: 10px;
+        color: black;
+    }
+
+
+    h1 {
+        font-size: 20px;
+    }
+    .container{
+        width: 15rem;
+    }
+}
