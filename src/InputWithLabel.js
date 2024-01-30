@@ -1,6 +1,7 @@
 import React from "react";
+import styles from "./AddTodoForm.module.css"
 
-const InputWithLabel = ({id, value, type='text', onChange, children, isFocused}) => {
+const InputWithLabel = ({id, value, type='text',onChange, children, isFocused}) => {
     const inputRef = React.useRef();
 
     React.useEffect(() => {
@@ -12,7 +13,7 @@ const InputWithLabel = ({id, value, type='text', onChange, children, isFocused})
     return(
       <>
        <label htmlFor='todoTitle'>{children}</label>
-       <input 
+       <input className={styles.input}
         id={id} 
         type={type} 
         value={value} 
