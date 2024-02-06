@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "./AddTodoForm.module.css"
+import styles from "./AddTodoForm.module.css";
+import PropTypes from 'prop-types';
 
 const InputWithLabel = ({id, value, type='text',onChange, children, isFocused}) => {
     const inputRef = React.useRef();
@@ -23,6 +24,13 @@ const InputWithLabel = ({id, value, type='text',onChange, children, isFocused}) 
       </>
     )
 };
+
+InputWithLabel.propTypes = {
+  id: PropTypes.string,
+  value: PropTypes.string,
+  type: PropTypes.object,
+  onChange: PropTypes.func,
+}
 
 
 export default InputWithLabel;
