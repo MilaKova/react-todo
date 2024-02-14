@@ -8,6 +8,7 @@ function TodoContainer({tableName}) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [ascending, setAscending] = useState(false);
 
   const fetchData = async () => {
     const options = {
@@ -17,6 +18,11 @@ function TodoContainer({tableName}) {
       },
     };
     const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
+    
+    // Sort by Airtable field
+    //const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`
+    
+
 
     try {
       const response = await fetch(url, options);
@@ -27,6 +33,20 @@ function TodoContainer({tableName}) {
       }
 
       const data = await response.json();
+
+      //sort in alphabetical order with JavaScript
+      ascending
+      ? data.records.sort((objectA, objectB) => {
+        if(objectA.fields.title.toUpperCase() < objectB.fields.title.toUpperCase())return -1
+        else if (objectA.fields.title.toUpperCase() === objectB.fields.title.toUpperCase())return 0
+        else return 1
+      })
+      : data.records.sort((objectA, objectB) => {
+        if(objectA.fields.title.toUpperCase() < objectB.fields.title.toUpperCase())return 1
+        else if (objectA.fields.title.toUpperCase() === objectB.fields.title.toUpperCase())return 0
+        else return -1
+        })
+
       const todos = data.records.map((todo) => {
         const newTodo = {
           id: todo.id,
@@ -46,7 +66,7 @@ function TodoContainer({tableName}) {
 
   useEffect(() => {
     fetchData();
-  }, [tableName]);
+  }, [tableName, ascending]);
 
   const addTodo = async (todo) => {
     try {
@@ -127,7 +147,16 @@ function TodoContainer({tableName}) {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
+          <>
+            <label>A-to-Z</label>
+            <input
+              id="switch"
+              type="checkbox"
+              checked={ascending}
+              onChange={() => setAscending(!ascending)}
+              />              
           <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+          </>
         )}
       </>
     </div>
