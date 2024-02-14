@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import TodoList from'../components/TodoList.js';
 import AddTodoForm from '../components/AddTodoForm';
-import styles from'../App.module.css';
+import styles from'./TodoContainer.module.css';
+import Quote from './Quote.js';
 import PropTypes from 'prop-types';
 
 function TodoContainer({tableName}) {
@@ -136,9 +137,11 @@ function TodoContainer({tableName}) {
   };
   return (
     <div className={styles.container}>
-      <>
+    <Quote/>
+
+      <div className={styles.todo_container}>
         <h1>
-          <span className="material-symbols-outlined">select_check_box</span> to do {tableName}
+          <span className="material-symbols-outlined">select_check_box</span> to do
         </h1>
         <AddTodoForm onAddTodo={addTodo} />
 
@@ -148,17 +151,19 @@ function TodoContainer({tableName}) {
           <p>Loading...</p>
         ) : (
           <>
-            <label>A-to-Z</label>
+            
+          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+          <label>A-to-Z</label>
+
             <input
               id="switch"
               type="checkbox"
               checked={ascending}
               onChange={() => setAscending(!ascending)}
-              />              
-          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-          </>
+              />             
+               </>
         )}
-      </>
+      </div>
     </div>
   );
 }

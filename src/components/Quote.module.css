@@ -1,0 +1,12 @@
+.container_quote {
+    margin-top: 40px;
+    background-color: rgb(218, 210, 200);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+@media (max-width: 480px) {
+    .container_quote {
+        font-size: 12px;
+    }
+}
