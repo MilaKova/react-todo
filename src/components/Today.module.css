@@ -1,0 +1,31 @@
+.today {
+  color: white;
+  text-align: center;
+}
+
+h2 {
+  font-size: 70px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+@media (max-width: 480px) {
+
+
+  h2 {
+    font-size: 35px;
+  }
+
+  h3 {
+    font-size: 12px;
+    color: black;
+  }
+
+}
